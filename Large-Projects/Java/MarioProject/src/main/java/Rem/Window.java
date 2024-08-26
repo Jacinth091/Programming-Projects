@@ -5,6 +5,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWWindowFocusCallback;
 import org.lwjgl.opengl.GL;
+import util.Time;
 
 import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -20,17 +21,32 @@ public class Window {
     private long glfwWindow;
     private static Window window = null;
 
-    private float r,g,b,a;
+    private static Scene currentScene;
+    public float r,g,b,a;
 
     private boolean fadeToBlack = false;
     private Window(){
-        this.height = 1080;
-        this.width = 1920;
+        this.height = 720;
+        this.width = 1280;
         this.title = "Mario Proj";
         r = 1;
         g = 1;
         b =1;
         a =1;
+    }
+
+    public static void changeScene(int newScene){
+        switch(newScene){
+            case 0:
+                currentScene = new LevelEditorScene();
+                break;
+            case 1:
+                currentScene = new LevelScene();
+                break;
+            default:
+                assert false : " Unknown Scene '" + newScene +"'.";
+
+        }
     }
 
     public static Window get(){
@@ -58,6 +74,7 @@ public class Window {
     }
 
     public void init(){
+
         // Setup an error callback. The default implementation
         // will print the error message in System.err
 
@@ -109,10 +126,17 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
+        Window.changeScene(0);
 
     }
 
     public void loop(){
+        double beginTime = glfwGetTime();
+        double endTime;
+        double dt = -1.0f;
+
+
+
         while(!glfwWindowShouldClose(glfwWindow)){
             // Poll Events
 
@@ -121,18 +145,13 @@ public class Window {
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (fadeToBlack) {
-
-                r = Math.max(r - 0.01f, 0);
-                b = Math.max(b - 0.01f, 0);
-                g = Math.max(g - 0.01f, 0);
-                a = Math.max(a - 0.01f, 0);
+            if(dt >= 0){
+                currentScene.update(dt);
             }
 
-            if(KeyListener.getIsKeyPressed(GLFW_KEY_SPACE)){
-                System.out.println("Space Key is PRESSED!!!!");
-                fadeToBlack = true;
-            }
+            endTime = glfwGetTime();
+            dt = endTime - beginTime;
+            beginTime = endTime;
 
             glfwSwapBuffers(glfwWindow);
         }
