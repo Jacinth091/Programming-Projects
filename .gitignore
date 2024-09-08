@@ -21,6 +21,10 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+### Folders ###
+/Java 2D Game ASSETS/
+/Snek/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
