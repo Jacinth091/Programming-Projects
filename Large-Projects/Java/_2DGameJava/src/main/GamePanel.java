@@ -2,13 +2,15 @@ package main;
 import javax.swing.JPanel;
 import java.awt.*;
 
+import entity.Player;
+
 public class GamePanel extends JPanel implements Runnable{
 
     // Screen Settings
     final int origTileSize = 16; // 16x16 tile
     final int scale =3;
 
-    final int tileSize = origTileSize * scale; // 48x48 tile size displayed on screen
+    final public int tileSize = origTileSize * scale; // 48x48 tile size displayed on screen
 
     // 4 x 3 screen size
     final int maxScreenCol = 16;
@@ -23,11 +25,34 @@ public class GamePanel extends JPanel implements Runnable{
     // Game Thread
     Thread gameThread;
 
+    // Key Event Handler
+    keyHandler keyH = new keyHandler();
+
+    // Player Class
+    Player player = new Player(this, keyH);
+
+    // Game FPS
+    int FPS =60;
+
+    // Constants
+    final long nanoTime = 1000000000;
+
+
+    // Testing for player pos
+
+    int posX = 100;
+    int posY =100;
+
+    int plySpd = 3;
+
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+
     }
 
     public void startGameThread(){
@@ -38,27 +63,47 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
+
+
+        double drawInterval = nanoTime/FPS;
+        double delta =0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+
         while(gameThread != null){
 
-            System.out.println("Game Loop is Working!!");
+            currentTime = System.nanoTime();
 
+            delta += (currentTime - lastTime ) / drawInterval;
 
-            // UPDATE: Update information (Movement, Health, etc)
-            update();
+            lastTime = currentTime;
 
-            // DRAW: Draw or Re-Draw the screen with the updated information
+            if(delta >= 1){
+                // UPDATE: Update information (Movement, Health, etc)
+                update();
 
-            repaint();
+                // DRAW: Draw or Re-Draw the screen with the updated information
+                repaint();
 
-
+                delta--;
+            }
         }
     }
 
     public void update(){
 
+        player.update();
+
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
+
+        player.draw(g2);
+
+        g2.dispose();
+
+
     }
 }
