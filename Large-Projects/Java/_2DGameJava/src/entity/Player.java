@@ -88,11 +88,11 @@ public class Player extends Entity{
 
     public void getPlayerSprites(){
 
-        File path = new File(playerSpritesPath);
-        File[] allSprites = path.listFiles();
+        File path = new File(playerSpritesPath); // Getting the path of all player sprites
+        File[] allSprites = path.listFiles(); // Listing individual files inside the folder path
 
         assert allSprites != null;
-        walkingSprites = new BufferedImage[allSprites.length];
+        walkingSprites = new BufferedImage[allSprites.length]; // assigning the length of player walking sprites array
 
         for(int i = 0; i < allSprites.length; i++){
             BufferedImage tempBuffer;

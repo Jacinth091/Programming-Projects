@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 import entity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -13,13 +14,13 @@ public class GamePanel extends JPanel implements Runnable{
     final public int tileSize = origTileSize * scale; // 48x48 tile size displayed on screen
 
     // 4 x 3 screen size
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
 
 
     // Screen Width and Height Settings
-    final int screenWidth = tileSize * maxScreenCol; // 48 * 16 = 768 screen width
-    final int screenHeight = tileSize * maxScreenRow; // 48 * 12 = 576 screen height
+    public final int screenWidth = tileSize * maxScreenCol; // 48 * 16 = 768 screen width
+    public final int screenHeight = tileSize * maxScreenRow; // 48 * 12 = 576 screen height
 
 
     // Game Thread
@@ -31,6 +32,9 @@ public class GamePanel extends JPanel implements Runnable{
     // Player Class
     Player player = new Player(this, keyH);
 
+    // TileManager Class - MAP Manager
+    TileManager tileManager = new TileManager(this);
+
     // Game FPS
     int FPS =60;
 
@@ -40,10 +44,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Testing for player pos
 
-    int posX = 100;
-    int posY =100;
+//    int posX = 100;
+//    int posY =100;
+//
+//    int plySpd = 3;
 
-    int plySpd = 3;
+    
 
     public GamePanel(){
 
@@ -102,6 +108,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+
+        tileManager.draw(g2);
 
         player.draw(g2);
 
