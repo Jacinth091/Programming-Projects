@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group = 'TutorialBot'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("net.dv8tion:JDA:5.1.1")  // replace $version with the latest version
+        // Optionally disable audio natives to reduce jar size by excluding `opus-java`
+        // Gradle DSL:
+        // exclude module: 'opus-java'
+        // Kotlin DSL:
+        // exclude(module="opus-java")
+    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+}
+
+test {
+    useJUnitPlatform()
+}
