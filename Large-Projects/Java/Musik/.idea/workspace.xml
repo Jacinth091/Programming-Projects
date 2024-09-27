@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13b8588e-2b7e-4b70-bb21-a5ee2b38d9f5" name="Changes" comment="Started working the music bot, implementing lavaplayer api for music query and playing" />
+    <list default="true" id="13b8588e-2b7e-4b70-bb21-a5ee2b38d9f5" name="Changes" comment="order changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727437425202</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="order changes">
+      <option name="closed" value="true" />
+      <created>1727437689321</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727437689321</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,6 +158,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Started a project for musik Bot" />
     <MESSAGE value="Started working the music bot, implementing lavaplayer api for music query and playing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started working the music bot, implementing lavaplayer api for music query and playing" />
+    <MESSAGE value="order changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="order changes" />
   </component>
 </project>

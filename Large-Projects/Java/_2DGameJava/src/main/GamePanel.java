@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this, keyH);
 
     // TileManager Class - MAP Manager
-    TileManager tileManager = new TileManager(this);
+    TileManager tileManager = new TileManager(this, "/Map/testMap.txt");
 
     // Game FPS
     int FPS =60;
@@ -58,10 +58,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
-
-
-
     }
 
     public void startGameThread(){

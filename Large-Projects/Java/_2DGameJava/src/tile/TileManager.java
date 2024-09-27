@@ -5,25 +5,57 @@ import main.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.Buffer;
 
 public class TileManager {
 
     GamePanel gp;
     Tile[] tileSprites;
+    int tileMapData[][];
 
     // CONSTANTS
     final String tilesPath = "res/Tiles";
 
-    public TileManager(GamePanel gp){
+    public TileManager(GamePanel gp, String mapFile){
         this.gp = gp;
-
+        tileMapData = new int[gp.maxScreenCol][gp.maxScreenRow];
         getTileSprites();
+        loadMapData(mapFile);
 
     }
 
-    public void update(){
+    public void loadMapData(String mapFile){
+
+        try{
+            InputStream is = getClass().getResourceAsStream(mapFile);
+            assert is != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            int col = 0, row =0;
+
+            while(col < gp.maxScreenCol && row < gp.maxScreenRow){
+                String line = br.readLine();
+
+                while(col < gp.maxScreenCol){
+                    String[] numbers = line.split(" ");
+                    int num = Integer.parseInt(numbers[col]);
+
+                    tileMapData[col][row] = num;
+                    col++;
+                }
+                if(col == gp.maxScreenCol){
+                    col =0;
+                    row++;
+                }
+
+            }
+            br.close();
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }
+
 
     }
     public void draw(Graphics2D g2){
@@ -35,7 +67,9 @@ public class TileManager {
         int col =0, row =0, x =0, y =0;
 
         while(col < gp.maxScreenCol && row < gp.maxScreenRow){
-            g2.drawImage(tileSprites[0].tile, x, y, gp.tileSize, gp.tileSize, null);
+            int tileIndex = tileMapData[col][row];
+
+            g2.drawImage(tileSprites[tileIndex].tile, x, y, gp.tileSize, gp.tileSize, null);
             col++;
             x += gp.tileSize;
 
