@@ -1,11 +1,9 @@
 package musika.main.commands;
 
 import musika.main.ICommand;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PingPong implements ICommand {
