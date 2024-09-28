@@ -2,6 +2,8 @@ package entity;
 
 import main.GamePanel;
 import main.keyHandler;
+import tile.Tile;
+import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,17 +14,23 @@ import java.io.IOException;
 public class Player extends Entity{
 
     GamePanel gp;
+
+    TileManager tm;
     keyHandler keyH;
 
     // Constants
     final int spriteAnimSpd  =12;
     final String playerSpritesPath = "res/Player";
 
+    public int screenPosX;
+    public int screenPosY;
 
     public Player(GamePanel gp, keyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
 
+        screenPosX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenPosY = gp.screenHeight/2  - (gp.tileSize/2);
 
         // Setting Default Values
         setDefaults();
@@ -31,8 +39,8 @@ public class Player extends Entity{
     }
 
     public void setDefaults(){
-        posX = 100;
-        posY = 100;
+        worldPosX = gp.tileSize * 23;
+        worldPosY = gp.tileSize *21;
         speed = 3;
         direction = "down";
     }
@@ -53,7 +61,7 @@ public class Player extends Entity{
 //        g2.setColor(Color.white);
 //        g2.fillRect(posX, posY, gp.tileSize , gp.tileSize);
 
-        g2.drawImage(playerSprite(), posX, posY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(playerSprite(), screenPosX, screenPosY, gp.tileSize, gp.tileSize, null);
 
 
 
@@ -85,6 +93,21 @@ public class Player extends Entity{
 
         return  sprite;
     }
+
+    public boolean checkCollision(){
+        for(int i =0; i < tm.tileSprites.length; i++){
+            boolean colData = tm.tileSprites[i].collision;
+
+            if(colData){
+                return true;
+            }
+            break;
+
+        }
+        return false;
+
+    }
+
 
     public void getPlayerSprites(){
 
@@ -134,19 +157,19 @@ public class Player extends Entity{
     public void checkPlayerKeyPress(){
         if(keyH.upPressed){
             direction = "up";
-            posY -= speed;
+            worldPosY -= speed;
         }
         else if(keyH.leftPressed){
             direction = "left";
-            posX -= speed;
+            worldPosX -= speed;
         }
         else if(keyH.downPressed){
             direction = "down";
-            posY += speed;
+            worldPosY += speed;
         }
         else if(keyH.rightPressed){
             direction = "right";
-            posX += speed;
+            worldPosX += speed;
         }
 
     }
