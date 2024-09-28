@@ -32,6 +32,12 @@ public class Player extends Entity{
         screenPosX = gp.screenWidth/2 - (gp.tileSize/2);
         screenPosY = gp.screenHeight/2  - (gp.tileSize/2);
 
+
+        // Collider
+
+        boxCollider = new Rectangle(8, 16, gp.tileSize -16, gp.tileSize-16);
+
+
         // Setting Default Values
         setDefaults();
         // Player Sprites
@@ -51,6 +57,9 @@ public class Player extends Entity{
         if(isKeyPressed()){
 
             checkPlayerKeyPress();
+
+            collisionOn = false;
+            gp.collCheck.checkTile(this);
 
             spriteAnimationManager();
         }
@@ -94,19 +103,7 @@ public class Player extends Entity{
         return  sprite;
     }
 
-    public boolean checkCollision(){
-        for(int i =0; i < tm.tileSprites.length; i++){
-            boolean colData = tm.tileSprites[i].collision;
 
-            if(colData){
-                return true;
-            }
-            break;
-
-        }
-        return false;
-
-    }
 
 
     public void getPlayerSprites(){

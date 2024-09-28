@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Key Event Handler
     keyHandler keyH = new keyHandler();
+    public CollisionChecker collCheck = new CollisionChecker(this);
 
     // Player Class
     public Player player = new Player(this, keyH);
@@ -105,10 +106,24 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-
         player.update();
 
+
     }
+
+  /*  public boolean checkCollision(){
+        for(int i =0; i < tileManager.tileSprites.length; i++){
+            boolean colData = tileManager.tileSprites[i].collision;
+
+            if(colData){
+                return true;
+            }
+//            break;
+
+        }
+        return false;
+
+    }*/
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);

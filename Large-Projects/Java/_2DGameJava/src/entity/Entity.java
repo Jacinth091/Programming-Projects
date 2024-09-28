@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -14,5 +15,11 @@ public class Entity {
 //    public BufferedImage up1, up2, left1, left2, down1,down2, right1, right2;
 
     public BufferedImage[] walkingSprites;
+
+    // For Collision
+
+    public Rectangle boxCollider;
+
+    public boolean collisionOn = false;
 
 }
